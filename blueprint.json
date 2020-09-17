@@ -10,9 +10,13 @@
   "bindings": [
     {
       "identifier": "",
-      "descriptor": {}
+      "descriptor": {},
+      "variables": {}
     }
   ],
+  "binding_anchor": {
+    "variables": {}
+  },
   "images": [
     {
       "type": "",
@@ -31,15 +35,6 @@
         "shell": [
         ]
       }
-    }
-  ],
-  "binding_anchor": {
-    "variables": {}
-  },
-  "bindings": [
-    {
-      "descriptor": {},
-      "variables": {}
     }
   ],
   "packages": [
