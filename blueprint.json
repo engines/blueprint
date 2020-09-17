@@ -1,0 +1,58 @@
+{
+  "title": "",
+  "description": "",
+  "license": {
+    "label": "",
+    "url": ""
+  },
+  "configuration": {
+  },
+  "bindings": [
+    {
+      "identifier": "",
+      "descriptor": {}
+    }
+  ],
+  "images": [
+    {
+      "type": "",
+      "image": "",
+      "scripts": {
+        "shell": [
+        ]
+      }
+    }
+  ],
+  "containers": [
+    {
+      "type": "",
+      "image": "",
+      "scripts": {
+        "shell": [
+        ]
+      }
+    }
+  ],
+  "packages": [
+    {
+      "descriptor": {}
+    }
+  ],
+  "os_packages": [
+    {
+      "type": "",
+      "name": ""
+    }
+  ],
+  "modules": [
+    {
+      "name": "",
+      "type": ""
+    }
+  ],
+  "repositories": [
+    {
+      "descriptor": {}
+    }
+  ]
+}
