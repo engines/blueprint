@@ -33,6 +33,15 @@
       }
     }
   ],
+  "binding_anchor": {
+    "variables": {}
+  },
+  "bindings": [
+    {
+      "descriptor": {},
+      "variables": {}
+    }
+  ],
   "packages": [
     {
       "descriptor": {}
