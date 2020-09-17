@@ -1,7 +1,4 @@
-Spaces Blueprint Format
-=======================
-
-# Blueprint Object Structure
+# Spaces Blueprint Format
 
 Components in a blueprint are optional. The top-level components are:
 
@@ -9,7 +6,7 @@ Components in a blueprint are optional. The top-level components are:
 * `description`
 * `license`
 * `configuration`
-  - a list of configuration variables a running component
+  - a list of configuration variables of a running component
   - used for values applying to a container's existence, free of consideration about turtles above or below
   - may contain default values
   - values may be changed by a user
@@ -32,4 +29,164 @@ Components in a blueprint are optional. The top-level components are:
 * `os_packages`
   - aka system packages
 * `modules`
-  - repositories
+- james & richard?
+* `repositories`
+- james?
+
+# `configuration`
+
+```
+"configuration": {
+  "relayhost": "^^domain.fqdn^^:465"
+}
+```
+
+# `bindings`
+
+```
+"bindings": [
+  {
+    "identifier": "",
+    "descriptor": {},
+    "variables": {}
+  }
+]
+```
+
+```
+"bindings": [
+  {
+    "descriptor": {
+      "repository": "https://github.com/MarkRatjens/postgres.git",
+      "branch": "hashidocker"
+    }
+  }
+]
+```
+
+# `binding_anchor`
+
+```
+"binding_anchor": {
+  "variables": {
+    "hostname": "^^identifier^^.^^universe.host^^",
+    "port": "5432",
+    "name": "^^identifier^^",
+    "username": "^^identifier^^_user",
+    "password": "^^random(10)^^"
+  }
+}
+```
+
+# images & containers
+
+```
+"images": [
+  {
+    "type": "lxd",
+    "image": "engines/beowulf/base/latest/ci"
+  }
+],
+"containers": [
+  {
+    "type": "lxd"
+  }
+]
+```
+
+```
+"containers": [
+  {
+    "type": "docker",
+    "image": "postgres:12.1"
+  }
+]
+```
+
+```
+"images": [
+  {
+    "type": "lxd",
+    "image": "devuan/beowulf/debootstrap",
+    "scripts": {
+      "shell": [
+        "provision-files",
+        "locale",
+        "apt",
+        "packages",
+        "supervisor",
+        "sshd",
+        "cleanup"
+      ]
+    }
+  }
+]
+```
+
+## `images`
+## `containers`
+
+
+# `packages`
+
+```
+"packages": [
+  {
+    "descriptor": {
+      "value": "https://github.com/publify/publify.git"
+    }
+  }
+]
+```
+
+```
+"packages": [
+  {
+    "descriptor": {
+      "repository": "http://files.phpmyadmin.net/phpMyAdmin/4.6.4/phpMyAdmin-4.6.4-all-languages.tar.gz",
+      "extraction": "tar -xzpf",
+      "extracted_path": "phpMyAdmin-4.6.4-all-languages"
+    }
+  }
+]
+```
+
+# `os_packages`
+
+```
+"os_packages": [
+  {
+    "type": "debian",
+    "name": "postfix"
+  }
+]
+```
+
+# `modules`
+
+```
+"modules": [
+  {
+    "name": "django",
+    "type": "python"
+  },
+  {
+    "name": "node-red",
+    "type": "npm"
+  }
+```
+
+# `repositories`
+
+```
+"repositories": [
+  {
+    "descriptor": {
+      "identifier": "opencpn",
+      "repository": "ppa:opencpn/opencpn",
+      "key_id": "",
+      "key_url": ""
+    }
+  }
+]
+```
