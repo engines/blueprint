@@ -29,11 +29,13 @@ Components in a blueprint are optional. The top-level components are:
 * `os_packages`
   - aka system packages
 * `modules`
-- james & richard?
+  - james & richard?
 * `repositories`
-- james?
+  - james?
 
 # `configuration`
+
+Include any number of key-value pairs, for example:
 
 ```
 "configuration": {
@@ -41,7 +43,12 @@ Components in a blueprint are optional. The top-level components are:
 }
 ```
 
+The value of the above may be interpolated anywhere else in the blueprint (including the ancillary files)
+be writing `^^configuration.relayhost^^`
+
 # `bindings`
+
+The general form of thise component is:
 
 ```
 "bindings": [
@@ -52,6 +59,12 @@ Components in a blueprint are optional. The top-level components are:
   }
 ]
 ```
+
+If `identifier` is omitted, it defaults to the descriptor's identifier.
+
+Commonly, `variables` may be omitted also, in which case the default values in the lower
+turtle's `binding_achor` will stand, unless overridden by the user. A simple example
+of a binding is therefore:
 
 ```
 "bindings": [
@@ -64,7 +77,15 @@ Components in a blueprint are optional. The top-level components are:
 ]
 ```
 
+The value of binding variables (included those accepted from the lower turtle's
+`binding_anchor` may be interpolated anywhere else in the blueprint (including the ancillary files).
+For example, `postgres.hostname`
+
 # `binding_anchor`
+
+A `binding_anchor` defines the variables a higher turtle must supply winding binding
+to this one where the anchor appears. Commonly, default values are provided which
+can be overridden by the higher turtle and/or the user.
 
 ```
 "binding_anchor": {
@@ -78,7 +99,17 @@ Components in a blueprint are optional. The top-level components are:
 }
 ```
 
+Where interpolation appears, those values are resolved for and scoped in *above turtle*.
+All above turtles have the own resolved values.
+
 # images & containers
+
+`images` and `containers` components have a very similar layout. `images` has
+a specification for things done at packer time while `containers` components
+specify things for provisioning. Under the hood `images` will generate Packer
+stanzas (instructions) while `containers` will generate Terraform stanzas.
+
+A simplistic example:
 
 ```
 "images": [
@@ -94,6 +125,11 @@ Components in a blueprint are optional. The top-level components are:
 ]
 ```
 
+A new LXD image will be generated (in this example, with nothing more than the contents of the input image)
+and used to generate components.
+
+The example below, provisions docker images without packing an intermediary image:
+
 ```
 "containers": [
   {
@@ -102,6 +138,10 @@ Components in a blueprint are optional. The top-level components are:
   }
 ]
 ```
+
+The example below packs some scripts and builds an LXD image without provisioning any containers.
+Such an approach allows for layering up and number of images in an imaged-based
+workflow approach.
 
 ```
 "images": [
@@ -122,6 +162,9 @@ Components in a blueprint are optional. The top-level components are:
   }
 ]
 ```
+
+We'd expect real-life blueprints to exploit various combinations of `images` and `containers`
+depending on the blueprint developer's needs, intentions and design choices.
 
 ## `images`
 ## `containers`
@@ -190,3 +233,23 @@ Components in a blueprint are optional. The top-level components are:
   }
 ]
 ```
+
+# Ancillary files
+
+A blueprint designer may include files under certain directories which Spaces knows how
+to process.
+
+* `injections`
+  - process and copy all directories and folders into the file structure of an image
+  (copying late into containers is yet to be implemented)
+
+* `packing`
+  - scripts
+    pack the scripts into the build
+
+* `provisioning`
+    - scripts
+      - TBD
+    - terraform
+      expected to contain Terraform `.tf` which will be copied for inclusion in
+      Terraform `plan` and `apply` actions
