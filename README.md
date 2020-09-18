@@ -24,6 +24,9 @@ Components in a blueprint are optional. The top-level components are:
   - the component that defines provisioning for a component
   - in the case where no packing is necessary, takes specific image name
   - defaults to taking the output of `images` component
+* `scaling`
+  - the component that offers guidance for issues of scale
+  - currently only deals with determining the number of containers that are provisioned for a given blueprint
 * `packages`
   - james & richard?
 * `os_packages`
@@ -32,7 +35,7 @@ Components in a blueprint are optional. The top-level components are:
   - james & richard?
 * `repositories`
   - james?
-
+  
 # `configuration`
 
 Include any number of key-value pairs, for example:
@@ -106,7 +109,7 @@ All above turtles have the own resolved values.
 
 `images` and `containers` components have a very similar layout. `images` has
 a specification for things done at packer time while `containers` components
-specify things for provisioning. Under the hood `images` will generate Packer
+specify things for provisioning. Under the hood, `images` will generate Packer
 stanzas (instructions) while `containers` will generate Terraform stanzas.
 
 A simplistic example:
@@ -169,6 +172,27 @@ depending on the blueprint developer's needs, intentions and design choices.
 ## `images`
 ## `containers`
 
+# scaling
+
+## provisions
+
+A key value set of various plausible options (from the POV of the blueprint writer) for the
+number of containers that might be provisioned out of the blueprint. The keys are meant for
+descriptiveness only and can be arbitrary. A user may select one and perhaps overwrite
+the count.
+
+At resolution time, the highest count remaining after user edit is used to provision that many
+containers. If no scaling is present the default is 1 container for the blueprint.
+
+```
+"scaling": {
+  "provisions": {
+    "not_recommended": "1",
+    "tolerable": "3",
+    "sensible": "5"
+  }
+}
+```
 
 # `packages`
 

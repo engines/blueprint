@@ -5,6 +5,9 @@
     "label": "",
     "url": ""
   },
+  "scaling": {
+    "provisions": {}
+  },
   "configuration": {
   },
   "bindings": [
